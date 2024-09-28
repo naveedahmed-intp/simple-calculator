@@ -35,7 +35,7 @@ container.addEventListener('click', (e) => {
                 display.textContent = firstNumber;
             }
         }
-        if((e.target.classList.contains("add") || e.target.classList.contains("minus") || e.target.classList.contains("multiply") || e.target.classList.contains("dvd")) && (secondNumber == "" || firstNumber == res)) {
+        if((e.target.classList.contains("add") || e.target.classList.contains("minus") || e.target.classList.contains("multiply") || e.target.classList.contains("dvd")) && (secondNumber == "")) {
             operator = e.target.id;
             display.textContent = firstNumber + " " + operator;
         }
@@ -44,7 +44,7 @@ container.addEventListener('click', (e) => {
                 display.textContent = firstNumber + " " + operator + " " + secondNumber;
             }
 
-        if(e.target.classList.contains("eq")) {
+        if(e.target.classList.contains("eq") && secondNumber != "") {
             switch(operator) {
                 case '+':
                 res = parseInt(firstNumber) + parseInt(secondNumber);
