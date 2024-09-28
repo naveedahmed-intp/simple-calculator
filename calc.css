@@ -1,3 +1,5 @@
+@import url('https://fonts.cdnfonts.com/css/calculator');
+
 body {
     display: flex;
     justify-content: center;
@@ -30,6 +32,8 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     color: #222;
     font-size: 30px;
+    overflow: hidden;
+    font-family: 'Calculator', sans-serif;
 }
 
 #name   {
@@ -59,7 +63,6 @@ body {
     border-bottom: 4px solid #c0392b;
     user-select: none;
     background: #e74c3c;
-    transition: background 0.05s linear;
     transition: all .05s linear;
     text-align: center;
     font-size: 20px;
