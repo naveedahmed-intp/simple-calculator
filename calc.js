@@ -19,7 +19,12 @@ function makeGrid(size) {
             btn.setAttribute("class", `button ${classArray[i]}`);
             btn.id = idArray[i];
             btn.style.padding = 20 + "px";
-            btn.style.backgroundColor = "white";
+            if(classArray[i] == "n") {
+                btn.style.backgroundColor = "white";
+            }
+            else {
+                btn.style.backgroundColor = "#FBCEB1";
+            }
             btn.textContent = idArray[i];
             container.appendChild(btn);
         }
@@ -35,7 +40,7 @@ container.addEventListener('click', (e) => {
                 display.textContent = firstNumber;
             }
         }
-        if((e.target.classList.contains("add") || e.target.classList.contains("minus") || e.target.classList.contains("multiply") || e.target.classList.contains("dvd")) && (secondNumber == "")) {
+        if((e.target.classList.contains("add") || e.target.classList.contains("minus") || e.target.classList.contains("multiply") || e.target.classList.contains("dvd")) && secondNumber == "" && firstNumber != "") {
             operator = e.target.id;
             display.textContent = firstNumber + " " + operator;
         }
