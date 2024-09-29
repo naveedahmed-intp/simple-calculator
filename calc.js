@@ -11,6 +11,7 @@ function playSound() {
 window.addEventListener('load', () => {
     let defaultGridSize = 4;
     makeGrid(defaultGridSize);
+    blink("start");
 });
 function makeGrid(size) {
     if (size > 0 && size <= 100) {
@@ -33,6 +34,7 @@ function makeGrid(size) {
 let firstNumber = "", secondNumber = "", res = 0, operator = "";
 
 container.addEventListener('click', (e) => {
+        blink("stop");
         playSound();
         if (operator == "") {
             if(e.target.classList.contains("n")) {
@@ -49,31 +51,55 @@ container.addEventListener('click', (e) => {
                 display.textContent = firstNumber + " " + operator + " " + secondNumber;
             }
 
-        if(e.target.classList.contains("eq") && secondNumber != "") {
+        if((e.target.classList.contains("eq") || e.target.classList.contains("add") || e.target.classList.contains("minus") || e.target.classList.contains("multiply") || e.target.classList.contains("dvd")) && secondNumber != "") {
             switch(operator) {
                 case '+':
-                res = parseInt(firstNumber) + parseInt(secondNumber);
-                display.textContent = firstNumber + " " + operator + " " + secondNumber + " = " + res;
+                res = parseFloat(firstNumber) + parseFloat(secondNumber);
                 firstNumber = res;
                 secondNumber = "";
+                operator = e.target.id;
+                if(!e.target.classList.contains("eq")) {
+                    display.textContent = firstNumber + " " + operator;
+                }
+                else {
+                    display.textContent = operator + " " + res;
+                }
                 break;
                 case '-':
-                res = parseInt(firstNumber) - parseInt(secondNumber);
-                display.textContent = firstNumber + " " + operator + " " + secondNumber + " = " + res;
+                res = parseFloat(firstNumber) - parseFloat(secondNumber);
                 firstNumber = res;
                 secondNumber = "";
+                operator = e.target.id;
+                if(!e.target.classList.contains("eq")) {
+                    display.textContent = firstNumber + " " + operator;
+                }
+                else {
+                    display.textContent = operator + " " + res;
+                }
                 break;
                 case 'x':
-                res = parseInt(firstNumber) * parseInt(secondNumber);
-                display.textContent = firstNumber + " " + operator + " " + secondNumber + " = " + res;
+                res = Math.round(parseFloat(firstNumber) * parseFloat(secondNumber)*100)/100;
                 firstNumber = res;
                 secondNumber = "";
+                operator = e.target.id;
+                if(!e.target.classList.contains("eq")) {
+                    display.textContent = firstNumber + " " + operator;
+                }
+                else {
+                    display.textContent = operator + " " + res;
+                }
                 break;
                 case '/':
-                res = Math.round(parseInt(firstNumber) / parseInt(secondNumber)*100)/100;
-                display.textContent = firstNumber + " " + operator + " " + secondNumber + " = " + res;
+                res = Math.round(parseFloat(firstNumber) / parseFloat(secondNumber)*100)/100;
                 firstNumber = res;
                 secondNumber = "";
+                operator = e.target.id;
+                if(!e.target.classList.contains("eq")) {
+                    display.textContent = firstNumber + " " + operator;
+                }
+                else {
+                    display.textContent = operator + " " + res;
+                }
                 break;
             }
         }
@@ -90,4 +116,24 @@ container.addEventListener('click', (e) => {
         secondNumber = "";
         operator = "";
         res = 0;
+        blink("start");
+    }
+
+    function blink(toggle) {
+        if(toggle == "start") {
+            let blinkingCursor = "_";
+            myInterval = setInterval(() => {
+            if (blinkingCursor == "_") {
+                display.textContent = blinkingCursor;
+                blinkingCursor = "";
+            } else {
+                display.textContent = blinkingCursor;
+                blinkingCursor = "_";
+            }
+        }, 500);
+        }
+        if (toggle == "stop") {
+            clearInterval(myInterval);
+        }
+        
     }
